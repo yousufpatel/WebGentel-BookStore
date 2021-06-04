@@ -21,6 +21,6 @@ jobs:
       run:  dotnet restore
     - name: Build
       run:  dotnet build --no-restore
-      working-directory: src/WebGentel-BookStore.sln
+      working-directory: src/WebGentel-BookStore/WebGentel-BookStore.csproj
     ##- name: Test
     ## run:  dotnet test --no-build --verbosity normal
