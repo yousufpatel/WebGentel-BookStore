@@ -13,13 +13,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET
+    - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '3.1.x'
+        dotnet-version: 3.1
     - name: Restore dependencies
-      run: dotnet restore
+      run:  dotnet restore
     - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run:  dotnet build --no-restore
+      working-directory: src/WebGentel-BookStore
+    ##- name: Test
+    ## run:  dotnet test --no-build --verbosity normal
