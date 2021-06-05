@@ -17,8 +17,8 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1
-    ##- name: Restore dependencies
-     ## run:  dotnet restore
+    - name: Restore dependencies
+      run:  dotnet restore ./src/WebGentel-BookStore/WebGentel-BookStore.sln
     - name: Build
       run:  dotnet build --no-restore
       working-directory: WebGentel-BookStore/src/WebGentel-BookStore/WebGentel-BookStore.sln
