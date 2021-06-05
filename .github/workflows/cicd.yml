@@ -20,4 +20,4 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ./src/WebGentel-BookStore.sln
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build ./src/WebGentel-BookStore.sln --no-restore
