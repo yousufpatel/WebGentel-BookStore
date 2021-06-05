@@ -19,6 +19,7 @@ jobs:
         dotnet-version: 3.1
     - name: Restore dependencies
       run:  dotnet restore
+      working-directory: ./src/src/WebGentel-BookStore/WebGentel-BookStore.sln
     - name: Build
       run: dotnet build --configuration Release
       working-directory: ./src/src/WebGentel-BookStore/WebGentel-BookStore.sln
