@@ -15,9 +15,10 @@ namespace WebGentel_BookStore.Controllers
         {
             _bookRepository = new BookRepository();
         }
-        public IActionResult GetAllBooks()
+        public ViewResult GetAllBooks()
         {
-            return Json(_bookRepository.GetAllBook());
+            var data = _bookRepository.GetAllBook();
+            return View();
         }
 
         public BookModel GetBook(int id)
