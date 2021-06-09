@@ -17,5 +17,10 @@ namespace WebGentel_BookStore.Controllers
         {
             return View();
         }
+
+        public ViewResult ContactUs()
+        {
+            return View();
+        }
     }
 }
