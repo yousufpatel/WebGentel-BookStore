@@ -1,4 +1,9 @@
-﻿<html lang="en">
+﻿@{ 
+    Layout = null;
+}
+
+
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +12,23 @@
 </head>
 <body>
     <h1>Welcome to book store</h1>
-    <p>This is paragrah</p>
+    <p>The current date and time is : @DateTime.Now.ToString("dd-mm-yyyyy")</p>
+    <p>sum = @(3+4)</p>
+    <h1>Multiline</h1>
+
+    @{
+
+        int a = 10;
+        int b = 20;
+        int c = a + b;
+    }
+
+    <h1>sum is @c</h1>
+    <h1>Email :  yousuf.glb@gmail.com</h1>
+    <h1>Twitter : @@yousuf</h1>
+    @{
+        int tim = 10;
+    }
+    <h1>@tim</h1>
 </body>
 </html>
