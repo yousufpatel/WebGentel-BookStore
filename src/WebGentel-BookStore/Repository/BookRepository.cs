@@ -13,7 +13,7 @@ namespace WebGentel_BookStore.Repository
         }
         public BookModel GetBookById(int id)
         {
-            return DataSource().Where(x => { return x.Id == 1; }).FirstOrDefault();
+            return DataSource().Where(x => { return x.Id == id; }).FirstOrDefault();
         }
         public List<BookModel> SearchBook(string title, string authorName)
         {
@@ -25,11 +25,12 @@ namespace WebGentel_BookStore.Repository
         {
             return new List<BookModel>
             {
-                new BookModel { Id =  1, Author = "Yousuf", Title = "MVC"},
-                new BookModel { Id = 2, Author = "Umar", Title = "C#"},
-                new BookModel { Id = 3, Author = "Patel",Title ="Php"},
-                new BookModel {Id = 4,Author = "Peter",Title = "java"},
-                new BookModel { Id = 5,Author = "Will",Title = "Dot Net Core"}
+                new BookModel { Id =  1, Author = "Yousuf", Title = "MVC",Description = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",Category = "FrameWork",Language = "English",TotalPages = 134},
+                new BookModel { Id = 2, Author = "Umar", Title = "C#",Description = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",Category = "Programming",Language = "English",TotalPages = 444},
+                new BookModel { Id = 3, Author = "Patel",Title ="Php",Description = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",Category = "Server Side Scripting Language",Language = "English",TotalPages = 222},
+                new BookModel {Id = 4,Author = "Peter",Title = "Java",Description = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",Category = "Programming",Language = "English",TotalPages = 44},
+                new BookModel { Id = 5,Author = "Will",Title = "Dot Net Core",Description = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",Category = "FrameWork",Language = "English",TotalPages = 555},
+                new BookModel { Id = 6,Author = "Yousuf",Title = "Azure Admin",Description = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",Category = "Microsoft Technologies",Language = "English",TotalPages = 233}
 
             };
         }
