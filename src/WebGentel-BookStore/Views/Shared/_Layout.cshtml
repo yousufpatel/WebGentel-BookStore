@@ -1,10 +1,17 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Book Store Application</title>
-    <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <title>@ViewData["Title"]</title>
+    <environment include="Development">
+        <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        @*<link href="~/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />*@
+        <link rel="stylesheet" href="http://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+              integrity="" 
+              crossorigin="anonymous">
+    </environment>
     <link href="~/css/Site.css" rel="stylesheet" />
 </head>
 <body>
@@ -12,7 +19,7 @@
         <nav class="navbar navbar-expand-sm navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img src="~/images/Dell_Logo.png" alt="Book Store" width="30" height="30" />
+                    <img src="~/images/Dell_Logo.png" alt="Book Store" width="30" height="30" asp-append-version="true" />
                     Book Store
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,16 +34,16 @@
                     </ul>
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Home</a>
+                            <a class="nav-link" asp-controller="home" asp-action="index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/home/aboutus">About</a>
+                            <a class="nav-link" asp-controller="home" asp-action="aboutus">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/home/contactus">Contact</a>
+                            <a class="nav-link" asp-controller="home" asp-action="contactus">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/book/getallbooks">All Books</a>
+                            <a class="nav-link" asp-controller="book" asp-action="getallbooks">All Books</a>
                         </li>
                     </ul>
                 </div>
@@ -51,7 +58,12 @@
             Copyright &copy; Book Store @DateTime.Now.Year
         </div>
     </footer>
-    <script src="~/lib/jquery/jquery.js"></script>
+    <environment include="Development">
+        <script src="~/lib/jquery/jquery.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/lib/jquery/jquery.min.js"></script>
+    </environment> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     @RenderSection("scripts", required: false)
