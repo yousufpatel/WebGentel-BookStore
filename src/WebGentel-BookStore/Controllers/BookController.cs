@@ -30,7 +30,17 @@ namespace WebGentel_BookStore.Controllers
         public List<BookModel> SearchBookName(string bookName, string autherName)
         {
             return _bookRepository.SearchBook(bookName, autherName);
+        }
 
+        public ViewResult AddNewBook()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ViewResult AddNewBook(BookModel bookModel)
+        {
+            return View();
         }
     }
 }
