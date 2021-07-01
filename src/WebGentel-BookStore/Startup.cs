@@ -4,11 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using WebGentel_BookStore.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebGentel_BookStore
 {
@@ -19,6 +17,7 @@ namespace WebGentel_BookStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(@"Data Source=W1024FJ3X2\SQLEXPRESS;Initial Catalog=BookStore;User ID=sa;Password=Admin@123;Integrated Security=True"));
 #if DEBUG
             services.AddRazorPages().AddRazorRuntimeCompilation();
 #endif
@@ -43,8 +42,8 @@ namespace WebGentel_BookStore
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name : "default",
-                    pattern:"{controller=Home}/{action=Index}/{id?}"
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
                     );
             });
 
