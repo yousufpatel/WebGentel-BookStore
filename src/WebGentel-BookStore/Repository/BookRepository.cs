@@ -1,38 +1,84 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using WebGentel_BookStore.Data;
 using WebGentel_BookStore.Models;
 
 namespace WebGentel_BookStore.Repository
 {
     public class BookRepository
     {
-        public List<BookModel> GetAllBook()
+        private readonly BookStoreContext _bookStoreContext;
+        public BookRepository(BookStoreContext bookStoreContext)
         {
-            return DataSource();
+            _bookStoreContext = bookStoreContext;
         }
-        public BookModel GetBookById(int id)
+        public async Task<int> AddNewBook(BookModel bookModel)
         {
-            return DataSource().Where(x => { return x.Id == id; }).FirstOrDefault();
-        }
-        public List<BookModel> SearchBook(string title, string authorName)
-        {
-            return DataSource().Where(x => x.Title.Contains(title, StringComparison.InvariantCultureIgnoreCase) ||
-                                      x.Author.Contains(authorName, StringComparison.InvariantCultureIgnoreCase)).ToList();
-        }
-
-        private List<BookModel> DataSource()
-        {
-            return new List<BookModel>
+            Book book = new Book
             {
-                new BookModel { Id =  1, Author = "Yousuf", Title = "MVC",Description = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",Category = "FrameWork",Language = "English",TotalPages = 134},
-                new BookModel { Id = 2, Author = "Umar", Title = "C#",Description = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",Category = "Programming",Language = "English",TotalPages = 444},
-                new BookModel { Id = 3, Author = "Patel",Title ="Php",Description = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",Category = "Server Side Scripting Language",Language = "English",TotalPages = 222},
-                new BookModel {Id = 4,Author = "Peter",Title = "Java",Description = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",Category = "Programming",Language = "English",TotalPages = 44},
-                new BookModel { Id = 5,Author = "Will",Title = "Dot Net Core",Description = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",Category = "FrameWork",Language = "English",TotalPages = 555},
-                new BookModel { Id = 6,Author = "Yousuf",Title = "Azure Admin",Description = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",Category = "Microsoft Technologies",Language = "English",TotalPages = 233}
-
+                Author = bookModel.Author,
+                CreatedOn = DateTime.UtcNow,
+                Description = bookModel.Description,
+                Title = bookModel.Title,
+                TotalPages = bookModel.TotalPages.HasValue ? bookModel.TotalPages.Value : 0,
+                UpdatedOn = DateTime.UtcNow
             };
+
+            await _bookStoreContext.Books.AddAsync(book);
+            await _bookStoreContext.SaveChangesAsync();
+            return book.Id;
+        }
+        public async Task<List<BookModel>> GetAllBook()
+        {
+            List<BookModel> books = null;
+            books = await (from book in _bookStoreContext.Books
+                           select new BookModel
+                           {
+                               Author = book.Author,
+                               Category = book.Category,
+                               Description = book.Description,
+                               Id = book.Id,
+                               Language = book.Language,
+                               Title = book.Title,
+                               TotalPages = book.TotalPages
+                           }).ToListAsync();
+            return books;
+        }
+        public async Task<BookModel> GetBookById(int id)
+        {
+            BookModel bookDetails = null;
+            bookDetails = await (from book in _bookStoreContext.Books
+                                 where book.Id == id
+                                 select new BookModel
+                                 {
+                                     Author = book.Author,
+                                     Category = book.Category,
+                                     Description = book.Description,
+                                     Id = book.Id,
+                                     Language = book.Language,
+                                     Title = book.Title,
+                                     TotalPages = book.TotalPages
+                                 }).FirstOrDefaultAsync();
+            return bookDetails;
+        }
+        public async Task<List<BookModel>> SearchBook(string title, string authorName)
+        {
+            List<BookModel> books = null;
+            await _bookStoreContext.Books.Where(x => x.Title.Contains(title, StringComparison.InvariantCultureIgnoreCase) ||
+                                      x.Author.Contains(authorName, StringComparison.InvariantCultureIgnoreCase)).Select(book => new BookModel
+                                      {
+                                          Author = book.Author,
+                                          Category = book.Category,
+                                          Description = book.Description,
+                                          Id = book.Id,
+                                          Language = book.Language,
+                                          Title = book.Title,
+                                          TotalPages = book.TotalPages
+                                      }).ToListAsync();
+            return books;
         }
     }
 }

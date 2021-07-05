@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using System.IO;
 using WebGentel_BookStore.Data;
 using Microsoft.EntityFrameworkCore;
+using WebGentel_BookStore.Repository;
 
 namespace WebGentel_BookStore
 {
@@ -21,6 +22,7 @@ namespace WebGentel_BookStore
 #if DEBUG
             services.AddRazorPages().AddRazorRuntimeCompilation();
 #endif
+            services.AddScoped<BookRepository, BookRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
